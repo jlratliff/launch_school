@@ -1,7 +1,7 @@
 # mortgage_messages.yml
 
 welcome: "Welcome to the mortgage calculator. \nEnter your name:"
-valid_name: "Your mom didn't name you? Try again."
+invalid_name: "Your mom didn't name you? Try again."
 loan_amount: "Enter the loan amount in whole dollars:"
 invalid_int: "Input a positive integer without puncutuation:"
 invalid_float: "Input a positive number"

@@ -24,7 +24,7 @@ name = nil
 loop do
   name = gets().chomp()
   break unless name.empty?()
-  prompt(PROMPTS['valid_name'])
+  prompt(PROMPTS['invalid_name'])
 end
 
 prompt("Hi #{name}")
