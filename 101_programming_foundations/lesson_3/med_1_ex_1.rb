@@ -1,0 +1,1 @@
+(0..10).each { |x| puts ' ' * x + 'The Flintstones'}

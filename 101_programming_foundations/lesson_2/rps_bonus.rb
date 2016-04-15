@@ -1,7 +1,3 @@
-# rps_bonus
-
-require 'pry'
-
 VALID_CHOICES = %w(r p s l o).freeze
 EXPANDED_CHOICES = { r: 'rock', p: 'paper',  s: 'scissors',
                      l: 'lizard', o: 'Spock' }.freeze
@@ -36,7 +32,7 @@ loop do
     loop do
       prompt("Choose one: (r)ock, (p)aper, (s)cissors, (l)izard, Sp(o)ck")
       choice = gets().chomp()
-      break if %w(r p s l o).include?(choice)
+      break if %w(r p s l o R P S L O).include?(choice)
       prompt("That's not a valid choice.")
     end
 
