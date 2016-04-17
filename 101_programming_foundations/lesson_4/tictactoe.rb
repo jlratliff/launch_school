@@ -14,7 +14,7 @@ end
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system 'clear'
-  puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}"
+  puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -44,7 +44,7 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    puts "Choose a square (#{empty_squares(brd).join(', ')}):"
+    prompt "Choose a square (#{empty_squares(brd).join(', ')}):"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry. Not a valid choice. Try again"
