@@ -6,8 +6,9 @@ COMPUTER_MARKER = 'O'.freeze
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
                 [[1, 5, 9], [3, 5, 7]]
-GAMES_PER_MATCH = 5
+GAMES_PER_MATCH = 2
 FIRST_MOVE = 'choose'.freeze
+PLAYERS = { 'c' => 'computer', 'p' => 'player' }.freeze
 
 def prompt(msg)
   puts "=> #{msg}".chomp
@@ -54,22 +55,9 @@ def joinor(empty_squares, delimiter = ', ', conjunction = 'or')
   joined_string
 end
 
-def player_places_piece!(brd)
-  square = ''
-  loop do
-    prompt "Choose a square: " + joinor(empty_squares(brd), ', ', 'and')
-    square = gets.chomp.to_i
-    break if empty_squares(brd).include?(square)
-    prompt "Sorry. Not a valid choice. Try again"
-  end
-
-  brd[square] = PLAYER_MARKER
-end
-
 def find_square_at_risk(brd)
   WINNING_LINES.each do |line|
-    line_vals = []
-    (0..2).each { |element| line_vals << brd[line[element]] }
+    line_vals = brd.values_at(*line)
     if line_vals.count(PLAYER_MARKER) == 2 && line_vals.include?(INITIAL_MARKER)
       return line[line_vals.index(INITIAL_MARKER)]
     end
@@ -79,8 +67,7 @@ end
 
 def find_winning_square(brd)
   WINNING_LINES.each do |line|
-    line_vals = []
-    (0..2).each { |element| line_vals << brd[line[element]] }
+    line_vals = brd.values_at(*line)
     if line_vals.count(COMPUTER_MARKER) == 2 && line_vals.include?(INITIAL_MARKER)
       return line[line_vals.index(INITIAL_MARKER)]
     end
@@ -88,7 +75,7 @@ def find_winning_square(brd)
   nil
 end
 
-def computer_places_piece!(brd)
+def computer_turn(brd)
   square = find_winning_square(brd)
   if !square
     square = find_square_at_risk(brd)
@@ -99,7 +86,33 @@ def computer_places_piece!(brd)
   if !square
     square = empty_squares(brd).sample
   end
-  brd[square] = COMPUTER_MARKER
+  square
+end
+
+def place_piece!(brd, current_player)
+  if current_player == 'computer'
+    square = computer_turn(brd)
+    # square = find_winning_square(brd)
+    # if !square
+    #   square = find_square_at_risk(brd)
+    # end
+    # if !square && brd[5] == INITIAL_MARKER
+    #   square = 5
+    # end
+    # if !square
+    #   square = empty_squares(brd).sample
+    # end
+    brd[square] = COMPUTER_MARKER
+  else
+    square = ''
+    loop do
+      prompt "Choose a square: " + joinor(empty_squares(brd), ', ', 'and')
+      square = gets.chomp.to_i
+      break if empty_squares(brd).include?(square)
+      prompt "Sorry. Not a valid choice. Try again"
+    end
+    brd[square] = PLAYER_MARKER
+  end
 end
 
 def board_full?(brd)
@@ -112,36 +125,11 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
-    line_vals = []
-    (0..2).each { |element| line_vals << brd[line[element]] }
+    line_vals = brd.values_at(*line)
     next unless line_vals.uniq.length == 1 && brd[line[0]] != ' '
-    if brd[line[0]] == PLAYER_MARKER
-      return "Player"
-    else
-      return "Computer"
-    end
+    return brd[line[0]] == PLAYER_MARKER ? 'Player' : 'Computer'
   end
   nil
-end
-
-def player_first(board, scores)
-  loop do
-    display_board(board, scores)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
-end
-
-def computer_first(board, scores)
-  loop do
-    computer_places_piece!(board)
-    display_board(board, scores)
-    break if someone_won?(board) || board_full?(board)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
 end
 
 # ----- Main program
@@ -153,25 +141,23 @@ loop do
 
     display_board(board, scores)
 
-    case FIRST_MOVE
-    when 'player'
-      player_first(board, scores)
-    when 'computer'
-      computer_first(board, scores)
-    when 'choose'
-      answer = ''
+    answer = FIRST_MOVE
+    if answer == 'choose'
       loop do
         prompt "Who goes first (c)omputer or (p)layer?"
         answer = gets.chomp
         break if ['c', 'p', 'C', 'P'].include?(answer)
         prompt "Invalid choice."
       end
-      case answer
-      when 'p', 'P'
-        player_first(board, scores)
-      when 'c', 'C'
-        computer_first(board, scores)
-      end
+    end
+
+    current_player = PLAYERS[answer[0].downcase]
+
+    loop do
+      display_board(board, scores)
+      place_piece!(board, current_player)
+      current_player = current_player == 'computer' ? 'player' : 'computer'
+      break if someone_won?(board) || board_full?(board)
     end
 
     display_board(board, scores)
@@ -190,12 +176,14 @@ loop do
     prompt "Press Enter to continue."
     gets
   end
+  answer = ''
   loop do
     prompt "Play another match? (y or n)"
     answer = gets.chomp
     break if ['y', 'n', 'Y', 'N'].include?(answer)
     prompt "Invalid choice."
   end
+  break if ['n', 'N'].include?(answer)
 end
 
 prompt "Thanks for playing tic-tac-toe"
