@@ -1,5 +1,3 @@
-require 'pry'
-
 INITIAL_MARKER = ' '.freeze
 PLAYER_MARKER = 'X'.freeze
 COMPUTER_MARKER = 'O'.freeze
@@ -92,16 +90,6 @@ end
 def place_piece!(brd, current_player)
   if current_player == 'computer'
     square = computer_turn(brd)
-    # square = find_winning_square(brd)
-    # if !square
-    #   square = find_square_at_risk(brd)
-    # end
-    # if !square && brd[5] == INITIAL_MARKER
-    #   square = 5
-    # end
-    # if !square
-    #   square = empty_squares(brd).sample
-    # end
     brd[square] = COMPUTER_MARKER
   else
     square = ''
