@@ -1,4 +1,4 @@
-WHATEVER_ONE = 21
+MAX_SCORE = 21
 DEALER_HITS_UNTIL = 17
 GAMES_PER_MATCH = 5
 
@@ -25,7 +25,7 @@ def total(hand)
           end
   end
 
-  while sum > WHATEVER_ONE && card_ranks.include?('A')
+  while sum > MAX_SCORE && card_ranks.include?('A')
     sum -= 10 if card_ranks.pop == 'A'
   end
   sum
@@ -34,8 +34,8 @@ end
 def display_hand(hand)
   line1 = ''
   line2 = '   '
-  hand.each_index do |index|
-    one_card = hand[index][1] + ' ' + hand[index][0] + '   '
+  hand.each_with_index do |(suit, value), index|
+    one_card = value + ' ' + suit + '   '
     if index.even?
       line1 << one_card
     else
@@ -46,9 +46,9 @@ def display_hand(hand)
   puts line2.chomp
 end
 
-def display_board(dealer_hand, player_hand, scores, hide_dealer_card = FALSE)
+def display_board(dealer_hand, player_hand, scores, hide_dealer_card = false)
   system 'clear'
-  puts "GAME OF #{WHATEVER_ONE}\nDealer hits until #{DEALER_HITS_UNTIL}\n"
+  puts "GAME OF #{MAX_SCORE}\nDealer hits until #{DEALER_HITS_UNTIL}\n"
   puts "You: #{scores['You']}   Dealer: #{scores['Dealer']}\n"
   if hide_dealer_card
     dealer_hand_hidden = []
@@ -65,9 +65,9 @@ def display_board(dealer_hand, player_hand, scores, hide_dealer_card = FALSE)
 end
 
 def player_turn!(dealer_hand, player_hand, deck, scores)
-  hide_dealer_card = TRUE
+  hide_dealer_card = true
   display_board(dealer_hand, player_hand, scores, hide_dealer_card)
-  while total(player_hand) < WHATEVER_ONE
+  while total(player_hand) < MAX_SCORE
     answer = nil
     loop do
       prompt "(H)it or (S)tay?"
@@ -83,7 +83,7 @@ def player_turn!(dealer_hand, player_hand, deck, scores)
 end
 
 def busted?(hand)
-  total(hand) > WHATEVER_ONE
+  total(hand) > MAX_SCORE
 end
 
 def dealer_turn!(dealer_hand, player_score, deck)
@@ -96,7 +96,6 @@ end
 
 def deal!(hand, deck)
   2.times { hand << deal_card!(deck) }
-  hand
 end
 
 def deal_card!(deck)
@@ -115,15 +114,15 @@ loop do
     dealer_hand = []
     player_hand = []
 
-    dealer_hand = deal!(dealer_hand, deck)
-    player_hand = deal!(player_hand, deck)
+    deal!(dealer_hand, deck)
+    deal!(player_hand, deck)
 
     player_score = player_turn!(dealer_hand, player_hand, deck, scores)
     display_board(dealer_hand, player_hand, scores)
-    if player_score == WHATEVER_ONE
+    if player_score == MAX_SCORE
       prompt "You won this round."
       scores["You"] += 1
-    elsif player_score > WHATEVER_ONE
+    elsif player_score > MAX_SCORE
       prompt "You busted. Dealer won this round."
       scores["Dealer"] += 1
     else
@@ -154,4 +153,4 @@ loop do
   break if ['n', 'N'].include?(answer)
 end
 
-prompt "Thanks for playing #{WHATEVER_ONE}."
+prompt "Thanks for playing #{MAX_SCORE}."
