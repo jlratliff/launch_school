@@ -1,0 +1,7 @@
+We use self to specify a certain scope for our program. self can refer to different things depending on where it is used.
+
+So just to be clear, from within a class...
+
+self, inside of an instance method, references the instance (object) that called the method - the calling object. Therefore, self.weight= is the same as sparky.weight=, in our example.
+
+self, outside of an instance method, references the class and can be used to define class methods. Therefore, def self.name=(n) is the same as def GoodDog.name=(n), in our example.
