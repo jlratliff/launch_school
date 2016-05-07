@@ -1,0 +1,10 @@
+Now that you know the two primary ways that Ruby implements inheritance, class inheritance and mixing in modules, you may wonder when to use one vs the other. Here are a couple of things to remember when evaluating those two choices.
+
+You can only subclass from one class. But you can mix in as many modules as you'd like.
+If it's an "is-a" relationship, choose class inheritance. If it's a "has-a" relationship, choose modules. Example: a dog "is an" animal; a dog "has an" ability to swim.
+You cannot instantiate modules (i.e., no object can be created from a module) Modules are used only for namespacing and grouping common methods together.
+
+Public and private methods are most common, but in some less common situations, we'll want an in-between approach. We can use the protected keyword to create protected methods. The easiest way to understand protected methods is to follow these two rules:
+
+from outside the class, protected methods act just like private methods.
+from inside the class, protected methods are accessible just like public methods.
