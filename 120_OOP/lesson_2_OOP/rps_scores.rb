@@ -1,48 +1,38 @@
 require "pry"
 # frozen_string_literal: true
 class Move
-  VALUES = { R: 'Rock', P: 'Paper', S: 'Scissors' }.freeze
+  VALUES = { r: 'rock', p: 'paper', s: 'scissors' }.freeze
+
+  def initialize(value)
+    @value = value
+  end
+
+  def scissors?
+    @value == 'scissors'
+  end
+
+  def rock?
+    @value == 'rock'
+  end
+
+  def paper?
+    @value == 'paper'
+  end
+
+  def >(other_move)
+    (rock? && other_move.scissors?) ||
+      (paper? && other_move.rock?) ||
+      (scissors? && other_move.paper?)
+  end
+
+  def <(other_move)
+    (rock? && other_move.paper?) ||
+      (paper? && other_move.scissors?) ||
+      (scissors? && other_move.rock?)
+  end
 
   def to_s
-    self.class.to_s
-  end
-
-  def beats?(object)
-    self > object
-  end
-
-  def loses?(object)
-    self < object
-  end
-end
-
-class Scissors < Move
-  def >(object)
-    object.class == Paper
-  end
-
-  def <(object)
-    object.class == Rock
-  end
-end
-
-class Paper < Move
-  def >(object)
-    object.class == Rock
-  end
-
-  def <(object)
-    object.class == Scissors
-  end
-end
-
-class Rock < Move
-  def >(object)
-    object.class == Scissors
-  end
-
-  def <(object)
-    object.class == Paper
+    @value
   end
 end
 
@@ -57,25 +47,25 @@ end
 
 class Human < Player
   def set_name
-    name = ''
+    n = ''
     loop do
       puts "What's your name?"
-      name = gets.chomp
-      break unless name.empty?
+      n = gets.chomp
+      break unless n.empty?
       puts "You have to have a name."
     end
-    self.name = name
+    self.name = n
   end
 
   def choose
     choice = nil
     loop do
       puts "Please choose (r)ock, (p)aper or (s)cissors:"
-      choice = gets.chomp.capitalize
-      break if Move::VALUES.value?(choice) || Move::VALUES.key?(choice[0].to_sym)
+      choice = gets.chomp.downcase
+      break if Move::VALUES.value?(choice) || Move::VALUES.key?(choice.to_sym)
       puts "Invalid choice. Try again."
     end
-    self.move = Object.const_get(Move::VALUES[choice[0].to_sym]).new
+    self.move = Move.new(Move::VALUES[choice[0].to_sym])
   end
 end
 
@@ -85,30 +75,31 @@ class Computer < Player
   end
 
   def choose
-    self.move = Object.const_get(Move::VALUES[Move::VALUES.keys.sample]).new
+    self.move = Move.new(Move::VALUES[Move::VALUES.keys.sample])
   end
 end
 
 class RPSGame
-  WINNING_SCORE = 2
+  WINNINGSCORE = 2
   attr_accessor :human, :computer
 
   def initialize
-    clear_screen
+    clearscreen
     @human = Human.new
     @computer = Computer.new
   end
 
-  def clear_screen
+  def clearscreen
     system "clear"
     system "cls"
   end
 
   def display_welcome_message
-    clear_screen
+    clearscreen
     reset_scores
     puts "Welcome to Rock, Paper, Scissors"
-    display_scores
+    puts "The score is #{computer.name}: #{computer.score}" \
+         "   #{human.name}: #{human.score}"
   end
 
   def display_goodbye_message
@@ -144,7 +135,7 @@ class RPSGame
   end
 
   def winner?
-    human.score == WINNING_SCORE || computer.score == WINNING_SCORE
+    human.score == WINNINGSCORE || computer.score == WINNINGSCORE
   end
 
   def play_again?
