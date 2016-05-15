@@ -17,31 +17,31 @@ class Move
 end
 
 class Scissors < Move
-  def >(object)
+  def > object
     object.class == Paper
   end
 
-  def <(object)
+  def < object
     object.class == Rock
   end
 end
 
 class Paper < Move
-  def >(object)
+  def > object
     object.class == Rock
   end
 
-  def <(object)
+  def < object
     object.class == Scissors
   end
 end
 
 class Rock < Move
-  def >(object)
+  def > object
     object.class == Scissors
   end
 
-  def <(object)
+  def < object
     object.class == Paper
   end
 end
