@@ -95,10 +95,8 @@ class Computer < Player
     when "Scissors"
       "Rock"
     end
-    history = "hellotor ="
     self.move = Object.const_get(computer_choice).new
     history << move.to_s
-    binding.pry
   end
 end
 
