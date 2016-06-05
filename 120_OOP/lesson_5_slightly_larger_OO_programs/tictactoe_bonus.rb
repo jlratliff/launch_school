@@ -175,6 +175,7 @@ class TTTGame
     display_board
   end
 
+  # rubocop:disable Metrics/AbcSize
   def display_board
     puts "#{human.name} is an #{human.marker}. "\
          "#{computer.name} is an #{computer.marker}."
@@ -184,6 +185,7 @@ class TTTGame
     board.draw
     puts ""
   end
+  # rubocop:ensable Metrics/AbcSize
 
   def human_chooses_marker
     puts "#{human.name}, please choose a marker ('X' or 'O'): "
