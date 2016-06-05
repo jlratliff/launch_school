@@ -199,7 +199,11 @@ class TTTGame
 
   def human_chooses_name
     puts "What's your name? "
-    human.name = gets.chomp
+    loop do
+      human.name = gets.chomp.downcase.strip
+      break unless human.name == ''
+      puts "Is that really your name? Try again."
+    end
   end
 
   def computer_chooses_marker
@@ -302,7 +306,7 @@ class TTTGame
 
   def reset_match
     board.reset
-    @current_markder = human.marker
+    @current_marker = human.marker
     human.reset_score
     computer.reset_score
     clear
