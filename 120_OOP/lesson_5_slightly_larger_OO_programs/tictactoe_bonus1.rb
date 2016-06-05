@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "pry"
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
@@ -56,12 +55,21 @@ class Board
   end
   # rubocop:enable Metrics/AbcSize
 
+  def display_unmarked_squares
+    joinor(unmarked_keys)
+  end
+
   private
 
   def three_identical_markers?(squares)
     markers = squares.select(&:marked?).collect(&:marker)
     return false if markers.size != 3
     markers.min == markers.max
+  end
+
+  def joinor(arr, delimiter = ', ', conjunction = 'or')
+    arr[-1] = "#{conjunction} #{arr.last}" if arr.length > 1
+    arr.join(delimiter)
   end
 end
 
@@ -88,17 +96,24 @@ class Square
 end
 
 class Player
-  attr_reader :marker
+  attr_reader :marker, :score
 
   def initialize(marker)
     @marker = marker
+    @score = 0
   end
+
+  def increase_score
+    @score += 1
+  end
+
 end
 
 class TTTGame
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
   FIRST_TO_MOVE = HUMAN_MARKER
+  WINNING_SCORE = 2
 
   attr_reader :board, :human, :computer
 
@@ -132,7 +147,8 @@ class TTTGame
 
   def display_board
     puts "You're a #{human.marker}. Computer is a #{computer.marker}."
-    puts ""
+    puts "Game is to #{WINNING_SCORE}"
+    puts "Score ==> You: #{human.score}   Computer: #{computer.score}"
     board.draw
     puts ""
   end
@@ -151,8 +167,12 @@ class TTTGame
     @current_marker == HUMAN_MARKER
   end
 
+  def joinor
+    join(', ')
+  end
+
   def human_moves
-    puts "Choose a square from #{board.unmarked_keys.join(', ')}: "
+    puts "Choose a square (#{board.display_unmarked_squares}): "
     square = nil
     loop do
       square = gets.chomp.to_i
@@ -172,8 +192,10 @@ class TTTGame
     case board.winning_marker
     when human.marker
       puts "You won."
+      human.increase_score
     when computer.marker
       puts "Computer won."
+      computer.increase_score
     else
       puts "It's a tie."
     end
@@ -196,11 +218,6 @@ class TTTGame
     clear
   end
 
-  def display_play_again_message
-    puts "Playing again, then."
-    puts ""
-  end
-
   public
 
   def play
@@ -219,7 +236,6 @@ class TTTGame
       display_result
       break unless play_again?
       reset
-      display_play_again_message
     end
 
     display_goodbye_message

@@ -5,6 +5,8 @@ class Board
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
                   [[1, 5, 9], [3, 5, 7]]
 
+  attr_reader :squares
+
   def initialize
     @squares = {}
     reset
@@ -56,12 +58,45 @@ class Board
   end
   # rubocop:enable Metrics/AbcSize
 
+  def display_unmarked_squares
+    joinor(unmarked_keys)
+  end
+
   private
 
   def three_identical_markers?(squares)
     markers = squares.select(&:marked?).collect(&:marker)
     return false if markers.size != 3
     markers.min == markers.max
+  end
+
+  def joinor(arr, delimiter = ', ', conjunction = 'or')
+    arr[-1] = "#{conjunction} #{arr.last}" if arr.length > 1
+    arr.join(delimiter)
+  end
+
+  public
+
+  def find_square_at_risk(marker)
+    WINNING_LINES.each do |line|
+      line_vals = []
+      line.each {|val| line_vals << @squares[val].marker}
+      if line_vals.count(marker) == 2 && line_vals.include?(Square::INITIAL_MARKER)
+        return line[line_vals.index(Square::INITIAL_MARKER)]
+      end
+    end
+    nil
+  end
+
+  def find_winning_square(marker)
+    WINNING_LINES.each do |line|
+      line_vals = []
+      line.each {|val| line_vals << @squares[val].marker}
+      if line_vals.count(marker) == 2 && line_vals.include?(Square::INITIAL_MARKER)
+        return line[line_vals.index(Square::INITIAL_MARKER)]
+      end
+    end
+    nil
   end
 end
 
@@ -88,17 +123,28 @@ class Square
 end
 
 class Player
-  attr_reader :marker
+  attr_reader :marker, :score
 
   def initialize(marker)
     @marker = marker
+    @score = 0
   end
+
+  def increase_score
+    @score += 1
+  end
+
+  def reset_score
+    @score = 0
+  end
+
 end
 
 class TTTGame
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
   FIRST_TO_MOVE = HUMAN_MARKER
+  WINNING_SCORE = 2
 
   attr_reader :board, :human, :computer
 
@@ -131,8 +177,9 @@ class TTTGame
   end
 
   def display_board
-    puts "You're a #{human.marker}. Computer is a #{computer.marker}."
-    puts ""
+    puts "You're an #{human.marker}. Computer is an #{computer.marker}."
+    puts "Game is to #{WINNING_SCORE}."
+    puts "Score ==>   You: #{human.score}   Computer: #{computer.score}"
     board.draw
     puts ""
   end
@@ -151,8 +198,12 @@ class TTTGame
     @current_marker == HUMAN_MARKER
   end
 
+  def joinor
+    join(', ')
+  end
+
   def human_moves
-    puts "Choose a square from #{board.unmarked_keys.join(', ')}: "
+    puts "Choose a square (#{board.display_unmarked_squares}): "
     square = nil
     loop do
       square = gets.chomp.to_i
@@ -163,19 +214,46 @@ class TTTGame
   end
 
   def computer_moves
-    board[board.unmarked_keys.sample] = computer.marker
+    computer_move = board.find_winning_square(computer.marker)
+    if !computer_move
+      computer_move = board.find_square_at_risk(human.marker)
+    end
+    if !computer_move && board.unmarked_keys.include?(5)
+      computer_move = 5
+    end
+    if !computer_move
+      computer_move = board.unmarked_keys.sample
+    end
+    board[computer_move] = computer.marker
   end
 
-  def display_result
+  def display_round_result
     clear_screen_and_display_board
-
     case board.winning_marker
     when human.marker
-      puts "You won."
+      puts "You won this round."
     when computer.marker
-      puts "Computer won."
+      puts "Computer won this round."
     else
       puts "It's a tie."
+    end
+  end
+
+  def display_match_result
+    case board.winning_marker
+    when human.marker
+      puts "You won this match."
+    when computer.marker
+      puts "Computer won this match."
+    end
+  end
+
+  def increase_winner_score
+    case board.winning_marker
+    when human.marker
+      human.increase_score
+    when computer.marker
+      computer.increase_score
     end
   end
 
@@ -190,41 +268,62 @@ class TTTGame
     answer == 'y'
   end
 
-  def reset
+  def reset_round
     board.reset
     @current_marker = FIRST_TO_MOVE
-    clear
   end
 
-  def display_play_again_message
-    puts "Playing again, then."
-    puts ""
+  def reset_match
+    reset_round
+    human.reset_score
+    computer.reset_score
+  end
+
+
+  def match_winner?
+    human.score == WINNING_SCORE || computer.score == WINNING_SCORE
+  end
+
+  def press_enter_to_continue
+    puts "Press enter to continue"
+    temp = gets
   end
 
   public
 
-  def play
+  def play_match
     clear
     display_welcome_message
+    press_enter_to_continue
 
     loop do
-      display_board
 
       loop do
-        current_player_moves
-        break if board.someone_won? || board.full?
-        clear_screen_and_display_board
+        play_round
+        display_round_result
+        break if match_winner?
+        reset_round
+        press_enter_to_continue
       end
 
-      display_result
+      display_match_result
       break unless play_again?
-      reset
-      display_play_again_message
+      reset_match
     end
-
     display_goodbye_message
   end
+
+  def play_round
+    clear_screen_and_display_board
+    loop do
+      current_player_moves
+      break if board.someone_won? || board.full?
+      clear_screen_and_display_board
+    end
+    increase_winner_score
+  end
+
 end
 
 game = TTTGame.new
-game.play
+game.play_match
