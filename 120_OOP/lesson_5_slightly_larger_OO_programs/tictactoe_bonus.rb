@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "pry"
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
@@ -78,8 +79,7 @@ class Board
 
   def find_square_at_risk(marker)
     WINNING_LINES.each do |line|
-      line_vals = []
-      line.each { |val| line_vals << @squares[val].marker }
+      line_vals = line.map { |val| @squares[val].marker }
       if line_vals.count(marker) == 2 && \
          line_vals.include?(Square::INITIAL_MARKER)
         return line[line_vals.index(Square::INITIAL_MARKER)]
@@ -90,8 +90,7 @@ class Board
 
   def find_winning_square(marker)
     WINNING_LINES.each do |line|
-      line_vals = []
-      line.each { |val| line_vals << @squares[val].marker }
+      line_vals = line.map { |val| @squares[val].marker }
       if line_vals.count(marker) == 2 && \
          line_vals.include?(Square::INITIAL_MARKER)
         return line[line_vals.index(Square::INITIAL_MARKER)]
