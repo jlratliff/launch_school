@@ -259,6 +259,7 @@ class TwentyOne
 
   public
 
+  # rubocop:disable MethodLength
   def start
     loop do
       play_hand
