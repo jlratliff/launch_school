@@ -1,0 +1,6 @@
+# notes
+
+So in summary, instance variables keep track of state, and instance methods expose behavior for objects. Let's take a closer look at how to define them in a class.
+
+We refer to the initialize method as a constructor, because it gets triggered whenever we create a new object.
+

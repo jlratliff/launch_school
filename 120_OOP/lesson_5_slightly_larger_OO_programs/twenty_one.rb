@@ -31,21 +31,21 @@ module Hand
       end
     end
     puts "#{name}'s Hand: #{total}"
-    puts line1.chomp
-    puts line2.chomp
+    puts line1
+    puts line2
     puts
   end
 
   def total
-    card_ranks = @cards.map { |card| card[0] }
+    card_ranks = @cards.map(&:first)
     sum = 0
     card_ranks.each do |value|
-      sum = if value == 'A'
-              sum + 11
+      sum += if value == 'A'
+              11
             elsif value.to_i == 0 # for face cards
-              sum + 10
+              10
             else
-              sum + value.to_i
+              value.to_i
             end
     end
 
@@ -77,7 +77,7 @@ class Player < CardPlayer
     loop do
       puts "Your name please: "
       name = gets.chomp.strip
-      break unless name == ''
+      break unless name.empty?
       puts "You must have a name. Try again."
     end
     self.name = name
@@ -111,12 +111,12 @@ class TwentyOne
     @player = Player.new
     @dealer = Dealer.new
     @deck = Deck.new
-    header
+    display_header
   end
 
   private
 
-  def header
+  def display_header
     system 'clear'
     puts "Welcome to the game of #{MAX_SCORE}."
     puts "#{dealer.name} hits until #{DEALER_HITS_UNTIL}."
@@ -147,7 +147,7 @@ class TwentyOne
   end
 
   def display_hands(flop = true)
-    header
+    display_header
     if flop
       dealer.display_flop
     else
@@ -166,12 +166,9 @@ class TwentyOne
         puts "Please enter 'H' or 'S'"
       end
 
-      if answer == 's'
-        break
-      else
-        player.add_card(deck.deal_card!)
-        display_hands
-      end
+      break if answer == 's'
+      player.add_card(deck.deal_card!)
+      display_hands
     end
   end
 

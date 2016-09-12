@@ -1,24 +1,55 @@
-# 1. How do we create an object in Ruby? Give an example of the creation of an object.
+# EX 1
+class Vehicle
+  attr_accessor :color, :model, :speed
+  attr_reader :year
 
-# We create objects in Ruby by instantiating classes. For example
-
-class SomeClass
-end
-
-some_object = SomeClass.new
-
-# 2. What is a module? What is its purpose? How do we use them with our classes? Create a module for the class you created in exercise 1 and include it properly.
-
-# A module is a collection of behaviors that can be included (mixed into) an existing class. Once included in a class, module methods can be used as though they were defined in the class. For example
-
-module SomeModule
-  def some_method
+  def self.mileage(gallons, miles)
+    puts Float(miles) / gallons
   end
+
+  def initialize(year, color, model)
+    @year = year
+    @color = color
+    @model = model
+    @speed = 0
+  end
+
+  def spray_paint(color)
+    self.color = color
+    puts "Your car is now #{self.color}"
+  end
+
+  def speedup(amount)
+    self.speed += amount
+    puts "Speed is #{self.speed}"
+  end
+
+  def slow_down(amount)
+    self.speed -= amount
+    puts "Speed is #{self.speed}"
+  end
+
+  def brake
+    self.speed = 0
+    puts "You stopped the vehicle."
+  end
+
+  def shutoff
+    puts "Car vehicle."
+  end
+
 end
 
-class SomeClass
-  include SomeModule
+class MyCar < Vehicle
+  NUMBER_OF_DOORS = 4
 end
 
-some_object = SomeClass.new
-some_object.some_method
+class MyTruck < Vehicle
+  NUMBER_OF_DOORS = 2
+end
+
+car = MyCar.new(1928, "brown", "Datsun")
+truck = MyTruck.new(1955, "green", "Ford")
+
+puts car
+puts truck
