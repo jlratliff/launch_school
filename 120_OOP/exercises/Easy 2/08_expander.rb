@@ -4,7 +4,7 @@ class Expander
   end
 
   def to_s
-    self.expand(3)
+    expand(3)
   end
 
   private
