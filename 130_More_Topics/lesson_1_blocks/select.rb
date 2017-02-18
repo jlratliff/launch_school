@@ -1,18 +1,15 @@
 def select(array)
   counter = 0
-  result = []
+  return_array = []
   while counter < array.size
-    result << array[counter] if yield(array[counter])
+    if yield(array[counter])
+      return_array << array[counter]
+    end
     counter += 1
   end
-
-  result
+  return_array
 end
-
-
 
 array = [1, 2, 3, 4, 5]
 
-p select(array) { |num| num.odd?}
-p select(array) { |num| puts num}
-p select(array) { |num| "help"}
+p array.select { |num| num.odd? }

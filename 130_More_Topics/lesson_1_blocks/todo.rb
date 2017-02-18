@@ -1,4 +1,7 @@
 require "pry"
+# This class represents a todo item and its associated
+# data: name and description. There's also a "done"
+# flag to show whether this todo item is done.
 
 class Todo
   DONE_MARKER = 'X'
@@ -38,9 +41,8 @@ class TodoList
   end
 
   def add(todo)
-    raise TypeError, 'can only add Todo ojects' unless todo.instance_of? Todo
-
-    @todos << todo
+    raise TypeError, 'can only add Todo objects' unless todo.instance_of? Todo
+    @todos.push(todo)
   end
 
   alias_method :<<, :add
@@ -65,10 +67,6 @@ class TodoList
     item_at(index).done!
   end
 
-  def mark_undone_at(index)
-    item_at(index).undone!
-  end
-
   def shift
     @todos.shift
   end
@@ -78,13 +76,14 @@ class TodoList
   end
 
   def remove_at(index)
-    @todos.delete(item_at(index))
+    raise IndexError if index >= @todos.size
+    @todos.delete_at(index)
   end
 
   def to_s
-    puts "---- Today's Todos ----"
-    @todos.each { |item| puts item}
-
+    string = "--- #{title} ---\n"
+    string << @todos.map(&:to_s).join("\n")
+    string
   end
 
   def each
@@ -95,36 +94,9 @@ class TodoList
   end
 
   def select
-    result = TodoList.new(title)
-    each do |todo|
-      result.add(todo) if yield todo
-    end
-
-    result
-  end
-
-  def find_by_title(title)
-    @todos.detect { |todo| todo.title == title} 
-  end
-
-  def all_done
-    select { |todo| todo.done? }
-  end
-
-  def all_not_done
-    select { |todo| !todo.done}
-  end
-
-  def mark_done(title)
-    find_by_title(title) && find_by_title(title).done!
-  end
-
-  def mark_all_done
-    each { |todo| todo.done!}
-  end
-
-  def mark_all_undone
-    each { |todo| todo.undone!}
+    list = TodoList.new(title)
+    list.each { |todo| list.add(todo) if yield(todo)}
+    list
   end
 
 end
@@ -132,13 +104,15 @@ end
 todo1 = Todo.new("Buy milk")
 todo2 = Todo.new("Clean room")
 todo3 = Todo.new("Go to gym")
+
 list = TodoList.new("Today's Todos")
+
 list.add(todo1)
 list.add(todo2)
 list.add(todo3)
+#p list.item_at
 todo1.done!
-puts list
-list.mark_all_undone
-puts list
 
+results = list.select { |todo| todo.done? }
 
+p results

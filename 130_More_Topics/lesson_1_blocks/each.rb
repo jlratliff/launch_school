@@ -1,6 +1,5 @@
 def each(array)
   counter = 0
-
   while counter < array.size
     yield(array[counter])
     counter += 1
@@ -9,8 +8,4 @@ def each(array)
   array
 end
 
-x = each([1, 2, 3, 4, 5]) do |num|
-  puts num * 2
-end
-
-p x
+each([4, 5, 6]) { |num| puts num}
