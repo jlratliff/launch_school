@@ -1,0 +1,23 @@
+{
+  "title": "&:",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "def digit_list(number)\n  number.to_s.chars.map(&:to_i)\nend"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">Our goal is to convert a number to a list of its digits. The easiest way to do this is to first convert the number to a string, then split the resulting string. This gives us an array of characters, each of which represents one digit. This is almost what we want, but we need to return an array of numbers, not an array of strings. That's where&nbsp;</span><code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none; font-variant-ligatures: normal; orphans: 2; widows: 2;\">Enumerable#map</code><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">&nbsp;comes to the rescue. You might find the&nbsp;</span><code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none; font-variant-ligatures: normal; orphans: 2; widows: 2;\">(&amp;:to_i)</code><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">&nbsp;part weird, but this is Ruby syntactic sugar; it's shorthand for:</span>"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "something.map { |char| char.to_i }"
+    },
+    {
+      "type": "text",
+      "data": "<a href=\"https://launchschool.com/exercises/30e147eb\">https://launchschool.com/exercises/30e147eb</a>"
+    }
+  ]
+}

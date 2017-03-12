@@ -1,0 +1,14 @@
+{
+  "title": "String",
+  "cells": [
+    {
+      "type": "text",
+      "data": "chars - returns a string of characters &nbsp;"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "'ab'.chars => [\"a\", \"b\"] "
+    }
+  ]
+}
