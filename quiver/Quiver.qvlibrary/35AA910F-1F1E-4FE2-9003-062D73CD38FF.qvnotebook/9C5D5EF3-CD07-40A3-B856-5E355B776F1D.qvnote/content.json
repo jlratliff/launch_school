@@ -3,12 +3,21 @@
   "cells": [
     {
       "type": "text",
-      "data": "chars - returns a string of characters &nbsp;"
+      "data": "<code>​String#chars</code>&nbsp;- returns a string of characters &nbsp;"
     },
     {
       "type": "code",
       "language": "ruby",
       "data": "'ab'.chars => [\"a\", \"b\"] "
+    },
+    {
+      "type": "text",
+      "data": "<code>​String#chop</code>​ removes the last character of a string"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "'string'.chop => 'strin'"
     }
   ]
 }

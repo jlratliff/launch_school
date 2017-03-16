@@ -1,0 +1,14 @@
+{
+  "title": "Date with “require ‘date’\"",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "require 'date'\nDate.today.year "
+    },
+    {
+      "type": "text",
+      "data": "gives the year. The code above instantiates a Date object with Date.today and then calls&nbsp;<div><br></div><div>This is from the Time class in the Ruby core:&nbsp;<a href=\"http://ruby-doc.org/core-2.1.0/Time.html\">http://ruby-doc.org/core-2.1.0/Time.html</a>*</div><div><br></div><div>*See the addtional note at the bottom</div><div><p style=\"padding: 0px; margin: 0px 0px 1.5em; color: rgb(0, 0, 0); font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2;\">There are two Time classes. There's one that is part of core Ruby and there is an additional Time class that is part of the standard library.</p><p style=\"padding: 0px; margin: 0px 0px 1.5em; color: rgb(0, 0, 0); font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2;\">The standard library Time class extends the core Time class by adding some methods. If you are using the standard library Time class and cannot find documentation for a method, look at the API docs for the core Time class.</p></div>"
+    }
+  ]
+}

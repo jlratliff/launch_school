@@ -1,0 +1,14 @@
+{
+  "title": "Date with Time",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "Time.now.year"
+    },
+    {
+      "type": "text",
+      "data": "This uses the core&nbsp;<code>​Time</code>​ class. The code above instantiates a Time object using&nbsp;<code>​Time::now</code>​ and then calling&nbsp;<code>​year</code>​ on that object."
+    }
+  ]
+}

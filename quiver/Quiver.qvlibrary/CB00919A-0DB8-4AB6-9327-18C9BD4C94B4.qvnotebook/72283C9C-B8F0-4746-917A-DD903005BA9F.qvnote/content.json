@@ -1,0 +1,10 @@
+{
+  "title": "Copy by reference v. copy by value",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "# This function copies by reference\ndef copy_array(array)\n  new_array = []\n  array.each { |value| new_array << value}\n  new_array\nend\n\n# This function copies by value\ndef copy_array2(array)\n  new_array = array.map(&:dup)\nend\n\narray1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)\narray2 = copy_array(array1)\narray1.each { |value| value.upcase! if value.start_with?('C', 'S') }\np array1\np array2"
+    }
+  ]
+}
