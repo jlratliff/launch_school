@@ -1,0 +1,9 @@
+{
+  "title": "Spaceship",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">The expression&nbsp;</span><code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none; font-variant-ligatures: normal; orphans: 2; widows: 2;\">number &lt;=&gt; 0</code><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">&nbsp;may look a bit odd; this is ruby's \"spaceship\" operator. It compares the left side against the right side, then returns +1 if the left side is greater than the right, -1 if the left side is smaller than the right, and 0 if the values are the same. This is often useful when you need to know whether a number is positive, negative, or zero.</span><div><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\"><br></span></div><div><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\"><a href=\"https://launchschool.com/exercises/3c1388d3\">https://launchschool.com/exercises/3c1388d3</a><br></span></div>"
+    }
+  ]
+}

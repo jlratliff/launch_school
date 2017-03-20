@@ -1,0 +1,10 @@
+{
+  "title": "Some assertions",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "assert_equal\nassert_nil\nassert_empty\n"
+    }
+  ]
+}

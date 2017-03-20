@@ -1,0 +1,14 @@
+{
+  "title": "Splat operator & underscore",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "birds = ['crow', 'finch', 'hawk', 'eagle']\n\ndef types(birds)\n  yield birds\nend\n\ntypes(birds) do |_,_,*birds_of_prey|\n  puts \"Two birds of prey are the #{birds_of_prey.join(' and ')}.\"\nend"
+    },
+    {
+      "type": "text",
+      "data": "<a href=\"https://launchschool.com/exercises/8621919c\">https://launchschool.com/exercises/8621919c</a>"
+    }
+  ]
+}

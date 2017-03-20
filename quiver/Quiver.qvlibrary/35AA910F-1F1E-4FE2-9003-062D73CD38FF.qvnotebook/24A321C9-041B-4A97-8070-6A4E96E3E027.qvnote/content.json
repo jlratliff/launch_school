@@ -1,0 +1,14 @@
+{
+  "title": "File",
+  "cells": [
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "file = File.open('sample_text.txt', 'r')\n# ...\nfile.close"
+    },
+    {
+      "type": "text",
+      "data": "<a href=\"https://launchschool.com/exercises/c618c0e4\">https://launchschool.com/exercises/c618c0e4</a>"
+    }
+  ]
+}
