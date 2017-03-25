@@ -18,6 +18,15 @@
       "type": "code",
       "language": "ruby",
       "data": "'string'.chop => 'strin'"
+    },
+    {
+      "type": "text",
+      "data": "<code>String#squeeze&nbsp;</code>​removes consecutive characters of the same value"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "\"yellow moon\".squeeze                  #=> \"yelow mon\"\n\"  now   is  the\".squeeze(\" \")         #=> \" now is the\"\n\"putters shoot balls\".squeeze(\"m-z\")   #=> \"puters shot balls\""
     }
   ]
 }
