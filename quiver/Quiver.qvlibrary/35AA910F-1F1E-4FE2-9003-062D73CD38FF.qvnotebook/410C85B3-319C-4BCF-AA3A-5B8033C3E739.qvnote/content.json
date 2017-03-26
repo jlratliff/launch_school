@@ -2,8 +2,22 @@
   "title": "Arrays",
   "cells": [
     {
+      "type": "code",
+      "language": "ruby",
+      "data": "def average(numbers)\n  sum = numbers.reduce { |sum, number| sum + number }\n  sum / numbers.count\nend"
+    },
+    {
       "type": "text",
       "data": "reduce<div><a href=\"https://launchschool.com/exercises/5b9a3e04\">https://launchschool.com/exercises/5b9a3e04</a><br></div>"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "def reverse(array)\n  result_array = []\n  array.reverse_each { |element| result_array << element }\n  result_array\nend"
+    },
+    {
+      "type": "text",
+      "data": "reverse_each<div><a href=\"https://launchschool.com/exercises/577016f3\">https://launchschool.com/exercises/577016f3</a><br></div>"
     }
   ]
 }
