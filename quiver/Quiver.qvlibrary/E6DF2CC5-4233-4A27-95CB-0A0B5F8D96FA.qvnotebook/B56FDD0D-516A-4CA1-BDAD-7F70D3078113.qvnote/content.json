@@ -1,0 +1,13 @@
+{
+  "title": "Truthiness",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<code><font color=\"#323232\" style=\"background-color: rgb(254, 250, 0);\">!</font> </code>will negate the Boolean value, e.g.&nbsp;<code><font color=\"#323232\" style=\"background-color: rgb(254, 250, 0);\">​!true</font></code><code> </code>returns<code> <font color=\"#323232\" style=\"background-color: rgb(254, 250, 0);\">false</font></code>"
+    },
+    {
+      "type": "text",
+      "data": "<code>​<font color=\"#323232\"><span style=\"background-color: rgb(254, 250, 0);\">!!</span></font></code>​ returns the truth value of an expression, e.g.&nbsp;<code>​<font color=\"#323232\" style=\"background-color: rgb(254, 250, 0);\">!!4</font></code>​ returns&nbsp;<code>​<font color=\"#323232\"><span style=\"background-color: rgb(254, 250, 0);\">true</span></font></code>"
+    }
+  ]
+}

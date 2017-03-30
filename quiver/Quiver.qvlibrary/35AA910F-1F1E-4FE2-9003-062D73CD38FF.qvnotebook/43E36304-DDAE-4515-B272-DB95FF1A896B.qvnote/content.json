@@ -1,0 +1,22 @@
+{
+  "title": "Module#comparable",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<div><=></div>"
+    },
+    {
+      "type": "text",
+      "data": "<a href=\"https://launchschool.com/exercises/7b242f41\">https://launchschool.com/exercises/7b242f41</a>"
+    },
+    {
+      "type": "code",
+      "language": "ruby",
+      "data": "class House\n  attr_reader :price\n  include Comparable\n\n  def initialize(price)\n    @price = price\n  end\n\n  def <=>(other)\n    price <=> other.price\n  end\nend\n\n..."
+    },
+    {
+      "type": "text",
+      "data": "<h4 style=\"box-sizing: inherit; font-size: 1.125rem; margin: 0.2rem 0px 1.125rem; padding: 0px; color: rgb(84, 84, 84); font-family: Avenir, myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: 300; line-height: 1.4; text-rendering: optimizelegibility; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">Discussion</h4><p style=\"box-sizing: inherit; margin: 0px 0px 1.75rem; padding: 0px; font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; line-height: 1.75; text-rendering: optimizelegibility; word-wrap: break-word; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">Making objects comparable is actually quite easy; you don't have to create every possible comparison operator for the object. Instead, all you need to do is include the&nbsp;<code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none;\">Comparable</code>&nbsp;mixin, and define one method:&nbsp;<code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none;\">&lt;=&gt;</code>. The&nbsp;<code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none;\">&lt;=&gt;</code>&nbsp;method should return 0 if the two objects are \"equal\", 1 if the receiving object is greater than the other object, and -1 if the receiving object is less that the other object. Often you can get by just using the&nbsp;<code style=\"box-sizing: inherit; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.8125rem; border: 0px solid rgb(62, 66, 69); padding: 0.1875rem 0.375rem; display: inline; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; text-shadow: none;\">&lt;=&gt;</code>&nbsp;operator from one or more of your class's instance objects like we do here.</p>"
+    }
+  ]
+}
