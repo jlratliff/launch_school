@@ -1,0 +1,9 @@
+{
+  "title": "self and private setters",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">unlike all other private method calls, you&nbsp;</span><em style=\"box-sizing: inherit; line-height: inherit; font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">must</em><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\">&nbsp;specify the receiver when calling a setter method.&nbsp;</span><div><span style=\"font-family: myriad-pro, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2; background-color: rgb(251, 251, 251);\"><a href=\"https://launchschool.com/exercises/d0f9783f\">https://launchschool.com/exercises/d0f9783f</a><br></span></div>"
+    }
+  ]
+}
