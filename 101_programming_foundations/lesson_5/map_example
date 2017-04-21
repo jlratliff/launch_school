@@ -1,0 +1,4 @@
+Line  Action            Object          Side Effect   Return Value        Is RV used?
+1     method call(map)  outer array     none          new array [1, 3]    No
+1-4   block execution   each sub-array  none          nil
+
